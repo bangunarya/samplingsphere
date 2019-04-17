@@ -18,12 +18,12 @@ close all
 
 clc;
 %% Generate degree and number of samples and iteration
-B=32; % Bandlimited degree
+B=10; % Bandlimited degree
 
 [lmn,lm]=degree_order(B); %Generate combination of degree and orders
 %% Preallocation
 MC=10; % Number of iteration
-m=100; % Number of measurement
+m=17:4:97; % Number of measurement
 Coh_all=zeros(1,length(m));
 ang_all=cell(1,length(m));
 Coh_val_temp=1; %Initial coherence
