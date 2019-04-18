@@ -8,8 +8,8 @@
 % Last modification: 17.04.2019 by Arya Bangun
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%s
 
-function [y_ps,Coh_val_ps] = az_pol_search(initial,m,lmn)
-x= rand(m,2)*2*pi;
+function [y_ps,Coh_val_ps] = az_pol_search(initial,x,lmn)
+ 
     %%%%%%%%%%%%%% OPT PROBLEM
     fun = @(x) simple_objective(x,initial,lmn);
    

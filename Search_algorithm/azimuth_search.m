@@ -7,21 +7,21 @@
 % Last modification: 17.04.2019 by Arya Bangun
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%s
 
-function [y_ps,Coh_val_ps] = azimuth_search(initial,m,lm)
-x= rand(m,1)*2*pi;
+function [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm )
+
     %%%%%%%%%%%%%% OPT PROBLEM
     fun = @(x) simple_objective(x,initial,lm);
    
-    %%%%%%%%%%%%%%% MultiStart
+%     %%%%%%%%%%%%%%% MultiStart
 %     gs = MultiStart;
 %     problem = createOptimProblem('fmincon','x0',x,...
 %             'objective',fun);
-%     [y_ps,Coh_val_ps] = run(gs,problem,15) ;
+%     [y_ps,Coh_val_ps] = run(gs,problem,10) ;
 %     y_ps=mod(y_ps,2*pi);
-    %%%%%%%%%%%%%%% PatternSearch
+%     %%%%%%%%%%%%%%% PatternSearch
    
-    [y_ps,Coh_val_ps] = patternsearch(fun,x) ;
-    y_ps=mod(y_ps,2*pi);
+       [y_ps,Coh_val_ps] = patternsearch(fun,x) ;
+       y_ps=mod(y_ps,2*pi);
 end
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 

@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%
-%%% This algorithms try to search pair angles on S2(sphere) and SO(3) rotation group
+%%% This algorithm tries to search pair angles on S2(sphere) and SO(3) rotation group
 %%% that have lower coherence property in a matrix from spherical harmonics
 %%% and Wigner-D functions . Given
 %%% deterministic angles on elevation (theta) which is equispaced sampling
@@ -27,51 +27,59 @@ m=17:4:97; % Number of measurement
 Coh_all=zeros(1,length(m));
 ang_all=cell(1,length(m));
 Coh_val_temp=1; %Initial coherence
-type = 'SH'; % SH or Wigner
 for jj=1:length(m);
-    %% Initialization
-   
+    
+    
     %% Fix theta
     initial(:,1)=acos(linspace(-1,1,m(jj)))';
-    
+   
     %% Lower bound
     PB1=legendreP(B-1,cos(initial(:,1)));
     PB3=legendreP(B-3,cos(initial(:,1)));
     norm_PB1=norm(PB1);
     norm_PB3=norm(PB3);
     Best_coh_PS = abs(PB1'*PB3)/(norm_PB1*norm_PB3);
-    %%%%%% Start Iteration %%%%%%%%%
-    for ii=1:MC;
-        if isequal('SH',type) == 1;
-            %%%%%%% Search algorithm Spherical Harmonics
-            [y_ps,Coh_val_ps] = azimuth_search(initial,m(jj),lm);
-        else
-            %%%%%%% Search algorithm Wigner-D functions
-            [y_ps,Coh_val_ps] = az_pol_search(initial,m(jj),lmn);
-            %%%%%%%%%%%%%% Check how good the coherence is
-        end
-        dist=abs(Best_coh_PS - Coh_val_ps);
-        if dist < 1e-2;
-            newx_ps=y_ps;
-            
-            disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),' Best Achievable Coherence = ',num2str(Coh_val_ps),', Distance  = ',num2str(dist), ', MC (Monte Carlo) = ',num2str(ii)]);
-            break
-        else
+    
+    
+    %%%%%%% Search algorithm Spherical Harmonics
+    x= rand(m(jj),1)*2*pi;
+    [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm);
+    
+    %
+    %     %%%%%%% Search algorithm Wigner-D functions
+    %     x=rand(m(jj),2)*2*pi;
+    %     [y_ps,Coh_val_ps] = az_pol_search(initial,x,lmn);
+    %     %%%%%%%%%%%%%% Check how good the coherence is
+    %
+    dist=abs(Best_coh_PS - Coh_val_ps);
+    if dist < 1e-2;
+        newx_ps=y_ps;
+        
+        disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),' Best Achievable Coherence = ',num2str(Coh_val_ps),', Distance  = ',num2str(dist)]);
+        break
+    else
+        %%%%%% Start Iteration %%%%%%%%%
+        for ii=1:MC;
             
             if Coh_val_ps < Coh_val_temp;
                 newx_ps=y_ps;
                 Coh_val_temp = Coh_val_ps;
+                dist2=abs(Best_coh_PS - Coh_val_temp);
             end
             
-            disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist), ', MC (Monte Carlo) = ',num2str(ii), ' selesai']);
+            disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist2), ', MC (Monte Carlo) = ',num2str(ii) ]);
+            %% Try to change initialization
+            x = newx_ps + rand(m(jj),size(newx_ps,2))*dist2;
+         
+            [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm);
         end
-        %% Try to change initialization
-        x = newx_ps + rand(m(jj),size(newx_ps,2))*1e-2;
+        
+        
     end
     %%%%%%%%%%%%%% Save the best Coherence
     Coh_all(jj)=Best_coh_PS;
     ang_all{jj}=[initial(:,1) newx_ps];
-     clear y_ps ang_new_ps newx_ps initial
+    clear y_ps ang_new_ps newx_ps initial
     %disp(['Simulasi m (measurement size) = ', num2str(m(jj)),' Best Coherence = ',num2str(Best_coh_PS),'Actual Coherence = ',num2str(Coh_val_temp),', Jarak coherence  = ',num2str(dist), ', MC (Monte Carlo) = ',num2str(ii), ' selesai']);
 end
 
