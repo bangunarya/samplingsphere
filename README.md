@@ -1,4 +1,4 @@
-# Compressed Sampling on Sphere and Rotation groups
+# Compressed Sampling on the Sphere $\mathbb{S}^2$ and the Rotation group $\mathrm{SO}(3)$
 
 This repository contains the programs for replicating the results of the following paper:
 
