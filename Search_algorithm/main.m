@@ -63,7 +63,7 @@ for jj=1:length(m);
                 Coh_val_temp = Coh_val_ps;
             end
             
-            disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist), ', MC (Monte Carlo) = ',num2str(ii), ' selesai']);
+            disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist), ', MC (Monte Carlo) = ',num2str(ii)]);
         end
         %% Try to change initialization
         x = newx_ps + rand(m(jj),size(newx_ps,2))*1e-2;
