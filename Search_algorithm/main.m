@@ -67,11 +67,15 @@ for jj=1:length(m);
                 dist2=abs(Best_coh_PS - Coh_val_temp);
             end
             
+<<<<<<< HEAD
             disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist2), ', MC (Monte Carlo) = ',num2str(ii) ]);
             %% Try to change initialization
             x = newx_ps + rand(m(jj),size(newx_ps,2))*dist2;
          
             [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm);
+=======
+            disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist), ', MC (Monte Carlo) = ',num2str(ii)]);
+>>>>>>> 493a5e42d41deff34851a649b005e795d1d6750d
         end
         
         
