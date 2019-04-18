@@ -1,4 +1,4 @@
-# Compressed Sampling on Sphere and Rotoation groups
+# Compressed Sampling on Sphere and Rotation groups
 
 This repository contains the programs for replicating the results of the following paper:
 
