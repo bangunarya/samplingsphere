@@ -1,1 +1,7 @@
+# Compressed Sampling on Sphere and Rotoation groups
 
+This repository contains the programs for replicating the results of the following paper:
+
+Arya Bangun, Arash Behboodi and Rudolf Mathar, *Sensing Matrix Design and Sparse Recovery on Sphere and Rotation Group*
+
+It also contains the sampling points obtained by Algorithm 1 in the above paper.
