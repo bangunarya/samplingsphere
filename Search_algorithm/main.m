@@ -26,9 +26,9 @@ MC=10; % Number of iteration
 m=17:4:97; % Number of measurement
 Coh_all=zeros(1,length(m));
 ang_all=cell(1,length(m));
-Coh_val_temp=1; %Initial coherence
+
 for jj=1:length(m);
-    
+    Coh_val_temp=1; %Initial coherence
     
     %% Fix theta
     initial(:,1)=acos(linspace(-1,1,m(jj)))';
@@ -70,7 +70,7 @@ for jj=1:length(m);
  
             disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist2), ', MC (Monte Carlo) = ',num2str(ii) ]);
             %% Try to change initialization
-            x = newx_ps + rand(m(jj),size(newx_ps,2))*dist2;
+            x = rand(m(jj),size(newx_ps,2));
          
             [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm);
  
