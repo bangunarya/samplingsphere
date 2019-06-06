@@ -56,7 +56,7 @@ for jj=1:length(m);
         newx_ps=y_ps;
         
         disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),' Best Achievable Coherence = ',num2str(Coh_val_ps),', Distance  = ',num2str(dist)]);
-        break
+        %break
     else
         %%%%%% Start Iteration %%%%%%%%%
         for ii=1:MC;
