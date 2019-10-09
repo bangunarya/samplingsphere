@@ -4,134 +4,49 @@
 % Created by Arya Bangun at TI RWTH Aachen
 % Last modification: 28.08.2014 by Arya Bangun
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%s    
+
+function [ A ] = SphHarm( ang, B )
+%SphHarm calculates the spherical harmonics for given theta, phi and order
+
+%B
+%   uses Condon-Shortley phase convention to calculate the negative orders
+%   https://en.wikipedia.org/wiki/Spherical_harmonics
+%   http://scipp.ucsc.edu/~haber/ph116C/SphericalHarmonics_12.pdf
+theta = ang(:,1);
+phi=ang(:,2);
+s = size(theta, 1);
+numHarm = (B)^2;
+
+A = zeros(numHarm, s);
+
+i = 0;
+
+for l = 0:B-1
+    m = (0:l)';
     
-
-
-function [Y,As_Leg]=SH_matrix(ang,lm,basistype);
-
-As_Leg=zeros(size(ang,1),size(lm,1));
-Y=zeros(size(ang,1),size(lm,1));
-for jj=1:size(lm,1);
-    order=lm(jj,:);
- 
+    P = legendre(l, cos(theta));
     
-    if isequal(basistype,'complex'); %%
-        normalisation=sqrt(((2*order(1)+1)/(4*pi))*(factorial(order(1)-order(2))/factorial(order(1)+order(2))));
-        spher_harm=AsslegendreP(order(1),order(2),cos(ang(:,1))).*exp(1i*order(2)*ang(:,2));
-        Y(:,jj)=normalisation*spher_harm;
-        As_Leg(:,jj)=normalisation*AsslegendreP(order(1),order(2),cos(ang(:,1)));
-  
-
-    elseif isequal(basistype,'real');
-        if order(2)> 0
-            exp_val=sqrt(2)*cos(order(2)*ang(:,2));
-        elseif order(2) < 0
-            exp_val=sqrt(2)*sin(abs(order(2))*ang(:,2));
-        else
-            exp_val=ones(size(ang,1),1);
-        end%
-        normalisation=sqrt(((2*order(1)+1)/(4*pi))*(factorial(order(1)-abs(order(2)))/factorial(order(1)+abs(order(2)))));
+    norm = sqrt( (2*l+1)*factorial(l-m) ./ (4*pi*factorial(l+m)) );
     
-        spher_harm=normalisation.*AsslegendreP(order(1),abs(order(2)),cos(ang(:,1)));
-        As_Leg(:,jj) =spher_harm;
-        Y(:,jj)=exp_val.*spher_harm;
+    N = norm * ones(1, s);
+    
+    Exp = exp(1i*m*phi');
+    
+    Y_pos = N .* P .* Exp;
+    
+    if l ~= 0
+        Condon_Shortley = (-1).^m(end:-1:2) * ones(1, s);
+        Y_neg = Condon_Shortley .* conj(Y_pos(end:-1:2, :));
     else
-        error('What is the basis type? (Complex or Real)');
+        Y_neg = [];
     end
-end
-end
-% Y_conj=conj(Y);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% Function to generate associated Legendre Polynomials
-%
-% Created by Arya Bangun at TI RWTH Aachen
-% Last modification: 28.08.2014 by Arya Bangun
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%s    
     
-%% Associated Legendre
-function [p]=AsslegendreP(l,m,x)
-
-% Calculate the Associated Legendre polynomials. 
-if(nargin==2), 
-    x=m;
-    clear m;
-    m=0;
-end;
-
-
-%Some basic error checking of parameters
-
-% Definition states that if |m|>l, the polynomial is 0; so set to 0 rather
-% than return an error. Some algorithms depend on this behaviour. Note that
-% the original definition requires 0<=m<=l
-if(abs(m)>abs(l)), p=zeros(size(x)); err=0; return; end;
-
-% Definition for l<0
-if(l<0), l=-l-1; end;
-
-% For m<0, polynomials are proportional to those with m>0, cfnm is the
-% proportionality coefficient
-cfnm=1;
-if(m<0),
-    m=-m;
-    cfnm=(-1)^m*factorial(l-m)/factorial(l+m);
-end;
-
-
-
-% Calculate coef of maximum degree in x from the explicit analytical
-% formula
-cl=(-1)^m*cfnm*factorial(2*l)/((2^l)*factorial(l)*factorial(l-m));
-maxcf=abs(cl);
-% fprintf('Coef is %.16f\n',cl);
-px=l-m;
-
-% Power of x changes from one term to the next by 2. Also needed for
-% sqrt(1-x^2).
-x2=x.*x;
-
-
-% Calculate efficiently P_l^m (x)/sqrt(1-x^2)^(m/2) - that is, only the
-% polynomial part. At least one coefficient is guaranteed to exist - there
-% is no null Legendre polynomial.
-p=cl*ones(size(x));
-
-for j=l-1:-1:0,
-    % Check the exponent of x for current coefficient, px. If it is 0 or 1,
-    % just exit the loop
-    if(px<2), break; end;
-    % If current exponent is >=2, there is a "next" coefficient; multiply p
-    % by x2 and add it. Calculate the current coefficient
-    cl=-(j+j+2-l-m)*(j+j+1-l-m)/(2*(j+j+1)*(l-j))*cl;
+    Y = [Y_neg; Y_pos];
     
-    if(maxcf<abs(cl)), maxcf=abs(cl); end;
-    %fprintf('Coef is %.16f\n',cl);
-    % ...and add to the polynomial
-    p=p.*x2 + cl;
-    % Decrease the exponent of x - this is the exponent of x corresponding
-    % to the newly added coefficient
-    px=px-2;
-end;
-% Estimate the error
-err=maxcf*eps;
-% fprintf('Coef is %.16f, err %.16f\n',maxcf, err);
+    A(i+1:i+(2*l+1), :) = Y;
+    i = i+(2*l+1);
+end
 
-% Now we're done adding coefficients. However, if the exponent of x
-% corresponding to the last added coefficient is 1 (polynomial is odd),
-% multiply the polynomial by x 
-if(px==1), p=p.*x; end;
+A = A.';
 
-% All that's left is to multiply the whole thing with sqrt(1-x^2)^(m/2). No
-% further calculations are needed if m=0.
-if(m==0), return; end;
-
-x2=1-x2;
-%First, multiply by the integer part of m/2
-for j=1:floor(m/2), p=p.*x2; end;
-%If m is odd, there is an additional factor sqrt(1-x^2)
-if(m~=2*floor(m/2)), p=p.*sqrt(x2); end;
-
-% Finally, the polynomials are not defined for |x|>1. If you do not need
-% this behaviour, comment the following line
-p(abs(x)>1)=NaN;
 end

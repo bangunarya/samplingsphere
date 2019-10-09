@@ -20,10 +20,10 @@ clc;
 %% Generate degree and number of samples and iteration
 B=10; % Bandlimited degree
 
-[lmn,lm]=degree_order(B); %Generate combination of degree and orders
+%[lmn,lm]=degree_order(B); %Generate combination of degree and orders
 %% Preallocation
 MC=10; % Number of iteration
-m=17:4:97; % Number of measurement
+m=9:4:100; % Number of measurement
 Coh_all=zeros(1,length(m));
 ang_all=cell(1,length(m));
 
@@ -43,7 +43,7 @@ for jj=1:length(m);
     
     %%%%%%% Search algorithm Spherical Harmonics
     x= rand(m(jj),1)*2*pi;
-    [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm);
+    [y_ps,Coh_val_ps] = azimuth_search(initial,x,B);
     
     %
     %     %%%%%%% Search algorithm Wigner-D functions

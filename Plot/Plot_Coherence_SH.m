@@ -19,7 +19,7 @@
 clear all
 close all
  
-load SH_N1024.mat 
+load SH_N10000.mat 
  
 N_SH=B^2;
 %% Product
@@ -38,34 +38,35 @@ for ii=1:length(m);
     Welchbound_SH(ii)=sqrt((N_SH-m(ii))/(m(ii)*(N_SH-1)));
     %% Create matrix from equiangular
     ang_equi=total_angles.equi{ii};
-    [SH_equi,~]=SH_matrix(ang_equi,lm,'complex');
+    [SH_equi]=SH_matrix(ang_equi,B);
     Coh_equi(ii)=Tes_Coherence(SH_equi);
     %% Create matrix from spiral
  
     ang_spiral=total_angles.spiral{ii};
-    [SH_spiral,~]=SH_matrix(ang_spiral,lm,'complex');
+    [SH_spiral]=SH_matrix(ang_spiral,B);
     Coh_spi(ii)=Tes_Coherence(SH_spiral);
     %% Create matrix from Fibonacci
      ang_fibo=  total_angles.fibo{ii}; 
-    [SH_fibo,~ ]=SH_matrix(ang_fibo,lm,'complex');
+    [SH_fibo ]=SH_matrix(ang_fibo,B);
     Coh_fib(ii)=Tes_Coherence(SH_fibo);
     %% Create matrix from Hammersley
     
     ang_Hammersley=  total_angles.hammersley{ii}; 
-    [SH_hammersley,~ ]=SH_matrix(ang_Hammersley,lm,'complex');
+    [SH_hammersley]=SH_matrix(ang_Hammersley,B);
     Coh_Hamm(ii)=Tes_Coherence(SH_hammersley);
  
     %% Create matrix from proposed  
     ang_proposed=total_angles.proposed{ii};
-    [SH_proposed,~]=SH_matrix(ang_proposed,lm,'complex');
+    [SH_proposed]=SH_matrix(ang_proposed,B);
     Coh_proposed(ii)=Tes_Coherence(SH_proposed);
-   
+  
     %% Legendre bound
     l2=B-1;
     l1=l2-2;
     Pl1=legendreP(l1,cos(ang_proposed(:,1)));
     Pl2=legendreP(l2,cos(ang_proposed(:,1)));
     Legendre_bound1(ii)=abs(Pl1'*Pl2)/(norm(Pl1)*norm(Pl2));
+      ii
  end
 FS=60;
 MS=30;
@@ -75,8 +76,8 @@ grid on
 plot(m,Coh_spi,'-or','LineWidth',6,'MarkerSize',MS);
 plot(m,Coh_fib,'-ok','LineWidth',6,'MarkerSize',MS);
 plot(m,Coh_Hamm,'-om','LineWidth',6,'MarkerSize',MS);
-plot(m,Coh_proposed,'-oc','LineWidth',6,'MarkerSize',MS);
-plot(m,Legendre_bound1,'--sr','LineWidth',6,'MarkerSize',MS);
+ plot(m,Coh_proposed,'-oc','LineWidth',6,'MarkerSize',MS);
+ plot(m,Legendre_bound1,'--sr','LineWidth',6,'MarkerSize',MS);
 plot(m,Welchbound_SH,'--sg','LineWidth',6,'MarkerSize',MS);
 title(['Coherence of sampling patterns on the sphere (N =', num2str(N),')'],'Interpreter','latex','FontSize',FS);
 ylabel('Coherence','Interpreter','latex','FontSize',FS);
