@@ -24,12 +24,13 @@ It also contains the sampling points obtained by Algorithm 1 in the above paper.
 ## Existing sampling points:
 
 To plot the coherence of spherical harmonics and Wigner D-functions matrices from existing sampling points use ``` Plot_Coherence_SH.m, Plot_Coherence_Wigner.m``` for sampling on the sphere and the rotation group, respectively. It should be noted that, the existing points in ``` .mat ``` file should be chosen first.
-For example, the following figures are generated when using ```load SH_N100_.mat```
-![Coherence Spherical Harmonic Matrices](/Figures/Coherence_SH.png)
+For example, the following figures are generated when using ```load SH_N100_.mat``` for spherical harmonics and  ```load Wigner_N84.mat``` for Wigner D-functions.
+![Coherence Spherical Harmonic Matrices](/Figures/Coherence_SH.png "Coherence Spherical Harmonic Matrices")
+![Coherence Spherical Harmonic Matrices](/Figures/Coherence_SH.png "Coherence Spherical Harmonic Matrices")
 
 To see the distribution of sampling points, run ``` .m``` and load the existing sampling points  ```load  _nameexistingpoints_.mat```.
 For example, the following figures are generaten when using  ```load  SH_N1024.mat```.
-![Sampling points](https://raw.github.com/bangunarya/samplingsphere/Figures/samplingpoints.png) 
+![Sampling points](https://raw.github.com/bangunarya/samplingsphere/Figures/samplingpoints.png ) 
 
 ## Search Algorithm:
 
