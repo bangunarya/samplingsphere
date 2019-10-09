@@ -2,6 +2,15 @@
 
 This repository contains the programs for replicating the results of the following paper:
 
-Arya Bangun, Arash Behboodi and Rudolf Mathar, *Sensing Matrix Design and Sparse Recovery on Sphere and Rotation Group*
+[Sensing Matrix Design and Sparse Recovery on the Sphere and the Rotation Group](https://arxiv.org/abs/1904.11596)
 
 It also contains the sampling points obtained by Algorithm 1 in the above paper.
+
+Citation:
+
+@article{bangun2019sensing,
+  title={Sensing Matrix Design and Sparse Recovery on the Sphere and the Rotation Group},
+  author={Bangun, Arya and Behboodi, Arash and Mathar, Rudolf},
+  journal={arXiv preprint arXiv:1904.11596},
+  year={2019}
+}
