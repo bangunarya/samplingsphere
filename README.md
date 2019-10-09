@@ -7,4 +7,8 @@ This repository contains the programs for replicating the results of the followi
 It also contains the sampling points obtained by Algorithm 1 in the above paper.
 
 Citation:
-{author*} {year}, {title}, {version^}, {publisher|howpublished~}, {prefix}:{identifier#}
+ 
+ 
+Dependencies:
+* MATLAB patternsearch
+* MATLAB 
