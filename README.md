@@ -29,7 +29,7 @@ For example, the following figures are generated when using ```load  _nameexisti
 
 To see the distribution of sampling points, run ``` .m``` and load the existing sampling points  ```load  _nameexistingpoints_.mat```.
 For example, the following figures are generaten when using  ```load  _nameexistingpoints_.mat```.
-
+![Sampling points](https://github.com/bangunarya/Dissertation/blob/master/Figure_Dissertation/Chapter4/Chapter4_Proposed_m100_500_900_N1024.pdf)
 
 ## Search Algorithm:
 
