@@ -28,7 +28,7 @@ For example, the following figures are generated when using ```load SH_N100.mat`
 ![Coherence Spherical Harmonic Matrices](/Figures/Coherence_SH.png "Coherence Spherical Harmonic Matrices")
 ![Coherence Wigner D-functions Matrices](/Figures/Coherence_Wigner.png "Coherence Wigner D-functions Matrices")
 
-To see the distribution of sampling points, run ``` .m``` and load the existing sampling points  ```load  _nameexistingpoints_.mat```.
+To see the distribution of sampling points, run ```samplingdistributions.m``` and load the existing sampling points  ```load  _nameexistingpoints_.mat```. The existing points have been generated until ```B = 100```, which equivalent to the column matrix spherical harmonics ```N = B^2 = 10000```.
 For example, the following figures are generaten when using  ```load  SH_N1024.mat```.
 ![Sampling points](Figures/samplingpoints.png ) 
 
