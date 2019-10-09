@@ -24,11 +24,11 @@ Dependencies:
 Existing sampling points:
 
 To plot existing sampling points use ``` Plot_Coherence_SH.m, Plot_Coherence_Wigner.m``` for sampling on the sphere and the rotation group, respectively. It should be noted that, the existing points in ``` .mat ``` file should be chosen first.
-For example, the following figures are generated when using ```load    .mat```
+For example, the following figures are generated when using ```load  _nameexistingpoints_.mat```
 
 
 
 
 Search Algorithm:
 
-To run search algorithm, one should run ``` main.m``` by choosing parameter spherical harmonics bandwidth ```B```
+To run search algorithm, one should run ``` main.m``` by choosing parameter spherical harmonics bandwidth ```B```, the number of iterations ```MC```, and total samples ```m```.
