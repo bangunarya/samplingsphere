@@ -1,4 +1,4 @@
-### Compressed Sampling on the Sphere <img src="https://latex.codecogs.com/gif.latex?\mathbb{S}^2" />  and the Rotation group <img src="https://latex.codecogs.com/gif.latex?\mathrm{SO}(3)" />
+# Compressed Sampling on the Sphere <img src="https://latex.codecogs.com/gif.latex?\mathbb{S}^2" />  and the Rotation group <img src="https://latex.codecogs.com/gif.latex?\mathrm{SO}(3)" />
 
 This repository contains the programs for replicating the results of the following paper:
 
