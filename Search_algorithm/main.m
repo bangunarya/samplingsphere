@@ -43,7 +43,7 @@ for jj=1:length(m);
     
     %%%%%%% Search algorithm Spherical Harmonics
     x= rand(m(jj),1)*2*pi;
-    [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm);
+    [y_ps,Coh_val_ps] = azimuth_search(initial,x,B);
     
     %
     %     %%%%%%% Search algorithm Wigner-D functions
