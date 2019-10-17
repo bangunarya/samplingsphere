@@ -19,7 +19,7 @@
 clear all
 close all
  
-load SH_N10000.mat 
+load SH_N100.mat 
  
 N_SH=B^2;
 %% Product

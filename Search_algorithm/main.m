@@ -22,7 +22,7 @@ B=10; % Bandlimited degree
 
 %[lmn,lm]=degree_order(B); %Generate combination of degree and orders
 %% Preallocation
-MC=10; % Number of iteration
+MC=1; % Number of iteration
 m=9:4:100; % Number of measurement
 Coh_all=zeros(1,length(m));
 ang_all=cell(1,length(m));
@@ -38,7 +38,7 @@ for jj=1:length(m);
     PB3=legendreP(B-3,cos(initial(:,1)));
     norm_PB1=norm(PB1);
     norm_PB3=norm(PB3);
-    Best_coh_PS = abs(PB1'*PB3)/(norm_PB1*norm_PB3);
+    Best_coh_PS = abs(PB1'*PB3)/(norm_PB1*norm_PB3)-0.05;
     
     
     %%%%%%% Search algorithm Spherical Harmonics
@@ -72,7 +72,7 @@ for jj=1:length(m);
             %% Try to change initialization
             x = rand(m(jj),size(newx_ps,2));
          
-            [y_ps,Coh_val_ps] = azimuth_search(initial,x,lm);
+            [y_ps,Coh_val_ps] = azimuth_search(initial,x,B);
  
             disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(dist), ', MC (Monte Carlo) = ',num2str(ii)]);
  

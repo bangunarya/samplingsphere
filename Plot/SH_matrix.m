@@ -5,7 +5,7 @@
 % Last modification: 28.08.2014 by Arya Bangun
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%s    
 
-function [ A ] = SphHarm( ang, B )
+function [ A ] = SH_matrix( ang, B )
 %SphHarm calculates the spherical harmonics for given theta, phi and order
 
 %B
