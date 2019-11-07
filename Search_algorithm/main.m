@@ -61,7 +61,7 @@ for jj=1:length(m);
         %%%%%% Start Iteration %%%%%%%%%
         for ii=1:MC;
             %% Try to change initialization
-            x =  (2*rand(m(jj),1)-1)*pi;
+            x =  rand(m(jj),1)*2*pi;
          
             [y_ps,Coh_val_ps] = azimuth_search(initial,x,B);
             if Coh_val_ps < Coh_val_temp;
