@@ -86,9 +86,10 @@ end
     
 function y = simple_objective(x,ang,B)
 
-ang_proposed=[ang(:,1) x];
-[Y]=SphHarm(ang_proposed,B);
-y=Tes_Coherence(Y);
+ ang_proposed=[ang(:,1) x];
+ [Y]=SphHarm(ang_proposed,B); 
+ 
+ y=Tes_Coherence(Y);
 end
 %% Coherence of a matrix
 function val=Tes_Coherence(Basis)

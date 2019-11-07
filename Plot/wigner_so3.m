@@ -4,7 +4,7 @@
 % Last modification: 28.08.2014 by Arya Bangun
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%s    
     
-function [Wigner_SO3,small_d]=wigner_so3(ang,lmn)
+function [Wigner_SO3,small_d]=wigner_so3(ang,B)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Generate Wigner Basis expansion from "Sparse recovery in Wigner-D basis
 % expansion 
@@ -12,7 +12,7 @@ function [Wigner_SO3,small_d]=wigner_so3(ang,lmn)
 % Created by Arya Bangun at TI RWTH Aachen
 % Last modification: 28.08.2018 by Arya Bangun
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+[lmn]= permut_lmn(B);
     function val=eta(m,mu)
         if mu >= m
             val=1;
@@ -91,4 +91,20 @@ if n==1, varargout{2}=0.5*(alp-bet+(apb+2)*x); varargout{1}=0.5*(apb+2)*ones(siz
       varargout{1}=pdern;
    return;
 
+end
+
+function [lmn]= permut_lmn(L)
+%% lmn for Wigner Basis
+l=0:L-1;
+N=L*(2*L-1)*(2*L+1)/3;
+lmn=zeros(N,3);
+idx_beg=1;
+for o=1:length(l);
+    m=-l(o):l(o);
+    vec=fliplr(combvec(m,m)');
+    idx=size(vec,1);
+    idx_end=idx_beg+idx-1;
+    lmn(idx_beg:idx_end,:)=[l(o)*ones(idx,1) vec];
+    idx_beg=idx_beg+idx;
+end
 end

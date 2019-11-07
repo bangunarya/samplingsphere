@@ -39,26 +39,26 @@ for ii=1:length(m);
     Welchbound_Wigner(ii)=sqrt((N_Wigner-m(ii))/(m(ii)*(N_Wigner-1)));
     %% Create matrix from equiangular
     ang_equi=total_angles.equi{ii};
-    [Wigner_SO3_equi,~]=wigner_so3(ang_equi,lmn);
+    [Wigner_SO3_equi,~]=wigner_so3(ang_equi,B);
     Coh_equi(ii)=Tes_Coherence(Wigner_SO3_equi);
     %% Create matrix from spiral
  
     ang_spiral=total_angles.spiral{ii};
-    [Wigner_SO3_spiral,~]=wigner_so3(ang_spiral,lmn);
+    [Wigner_SO3_spiral,~]=wigner_so3(ang_spiral,B);
     Coh_spi(ii)=Tes_Coherence(Wigner_SO3_spiral);
     %% Create matrix from Fibonacci
      ang_fibo=  total_angles.fibo{ii}; 
-    [Wigner_SO3_fibo,~]=wigner_so3(ang_fibo,lmn);
+    [Wigner_SO3_fibo,~]=wigner_so3(ang_fibo,B);
     Coh_fib(ii)=Tes_Coherence(Wigner_SO3_fibo);
     %% Create matrix from Hammersley
     
     ang_Hammersley=  total_angles.hammersley{ii}; 
-    [Wigner_SO3_hammersley,small_d]=wigner_so3(ang_Hammersley,lmn);
+    [Wigner_SO3_hammersley,small_d]=wigner_so3(ang_Hammersley,B);
     Coh_Hamm(ii)=Tes_Coherence(Wigner_SO3_hammersley);
  
     %% Create matrix from proposed  
     ang_proposed=total_angles.proposed{ii};
-    [Wigner_proposed,~]=wigner_so3(ang_proposed,lmn);
+    [Wigner_proposed,~]=wigner_so3(ang_proposed,B);
     Coh_proposed(ii)=Tes_Coherence(Wigner_proposed);
    
     %% Legendre bound
