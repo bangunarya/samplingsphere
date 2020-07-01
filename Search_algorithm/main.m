@@ -61,29 +61,29 @@ for jj=1:length(m);
 		[y_ps,Coh_val_ps] = azimuth_search(initial,x,B);
 		
 		%%%%%%%%%% Check whether we have better coherence
-            if Coh_val_ps < Coh_val_temp
-                Coh_val_temp = Coh_val_ps;
-                newx_ps = mod(y_ps,2*pi);	
-                x = mod(y_ps,2*pi);
-            else
-                new_ps = mod(y_ps,2*pi);
-                x = init_sample(m(jj),dim);
-            end	
+            	if Coh_val_ps < Coh_val_temp
+                	Coh_val_temp = Coh_val_ps;
+                	newx_ps = mod(y_ps,2*pi);	
+                	x = mod(y_ps,2*pi);
+           	else
+                	new_ps = mod(y_ps,2*pi);
+                	x = init_sample(m(jj),dim);
+            	end	
 	    else
 		
 		%%%%%%% Search algorithm Wigner-D functions %%%%%%%%%
     	
-        [y_ps,Coh_val_ps] = az_pol_search(initial,x,lmn);
+        	[y_ps,Coh_val_ps] = az_pol_search(initial,x,lmn);
         
-        %%%%%%% Check whether we have better coherence
-            if Coh_val_ps < Coh_val_temp
-                Coh_val_temp = Coh_val_ps;
-                newx_ps = y_ps;
-                x = mod(y_ps,2*pi);
-            else
-                new_ps = mod(y_ps,2*pi);
-                x = init_sample(m(jj),dim);
-            end
+        	%%%%%%% Check whether we have better coherence
+            	if Coh_val_ps < Coh_val_temp
+                	Coh_val_temp = Coh_val_ps;
+                	newx_ps = y_ps;
+                	x = mod(y_ps,2*pi);
+            	else
+                	new_ps = mod(y_ps,2*pi);
+                	x = init_sample(m(jj),dim);
+            	end
 	    end
         disp(['M (measurement size) = ', num2str(m(jj)),', Lower bound = ',num2str(Best_coh_PS),', Actual Coherence = ',num2str(Coh_val_ps),', Best Achievable Coherence = ',num2str(Coh_val_temp),', Distance  = ',num2str(abs(Coh_val_temp - Best_coh_PS)), ', Iteration  = ',num2str(k)]);
  
